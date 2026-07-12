@@ -111,7 +111,9 @@
                     (display "[Desktop Entry]\nName=Discord\nGenericName=Internet Messenger\nExec=discord\nIcon=discord\nType=Application\nCategories=Network;InstantMessaging;\nMimeType=x-scheme-handler/discord;\n" port)))
                 (substitute* (string-append opt "/resources/build_info.json")
                   (((string-append "\"version\": \"" #$version "\""))
-                   (string-append "\"version\": \"" #$version "\", \"SKIP_HOST_UPDATE\": true"))))))
+                   (string-append "\"version\": \"" #$version
+                                  "\", \"SKIP_HOST_UPDATE\": true"
+                                  ", \"localModulesRoot\": \"" modules "\""))))))
           (add-after 'install 'patch-elf
             (lambda* (#:key inputs outputs #:allow-other-keys)
               (use-modules (guix build utils)
@@ -129,7 +131,8 @@
                              ":")))
                 (for-each (lambda (file)
                             (when (elf-file? file)
-                              (invoke "patchelf" "--set-rpath" rpath file)
+                              (invoke "patchelf" "--set-rpath"
+                                      (string-append "$ORIGIN:" rpath) file)
                               (when (zero? (system* "patchelf" "--print-interpreter" file))
                                 (invoke "patchelf" "--set-interpreter"
                                         (search-input-file inputs "/lib/ld-linux-x86-64.so.2")
