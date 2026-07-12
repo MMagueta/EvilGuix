@@ -19,7 +19,12 @@ Add this channel to =~/.config/guix/channels.scm=:
 #+BEGIN_SRC scheme
 (channel
  (name 'evilguix)
- (url "https://github.com/MMagueta/EvilGuix"))
+ (url "https://github.com/MMagueta/EvilGuix")
+ (introduction
+  (make-channel-introduction
+   "419be71729183b5685df0c33d63731cd512edc57"
+   (openpgp-fingerprint
+    "CE25 E219 59B4 60A8 4BDF  B93F 0AD3 A126 3F9D E73E"))))
 #+END_SRC
 
 Then run:
