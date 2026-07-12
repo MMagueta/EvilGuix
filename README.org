@@ -1,22 +1,33 @@
-#+TITLE: Magueta's GNU Guix channel
+#+TITLE: Evil Guix Channel
 
-This repository is a GNU Guix channel for hosting Magueta's packages, forked from [[https://gitlab.com/nonguix/nonguix/][nonguix]].
+This channel contains, unfortunately, proprietary software that cannot
+be included in GNU Guix. Package modules live under the =evil=
+namespace.
 
-* Packages:
-  + .NET (dotnet) 5.0.201
-  + Firefox (nightly) 90.0.1
+While I do not personally endorse proprietary software, and encourage
+you to appeal to Libre Software, there is the unfortunate need for
+proprietary software still.
 
-* TODOs:
-  + Fix discord execution by lacking wget
-  + Remove packages such as omnisharp
-  + Simplify build system structure
-  + Add simple build packages such as mednafen
-  + Add [[https://github.com/MMagueta/MageMacs][MageMacs]] as a emacs bundle
+* Packages
 
-* How can I add this channel?
-  #+BEGIN_SRC scheme
-  ;;Add the following to your .config/guix/channels.scm list
-  (channel
-        (name 'mmaguetaguix)
-        (url "https://github.com/MMagueta/MMaguetaGuix"))
-  #+END_SRC
+- =discord=: Discord's proprietary desktop client for x86_64 Linux.
+
+* Add The Channel
+
+Add this channel to =~/.config/guix/channels.scm=:
+
+#+BEGIN_SRC scheme
+(channel
+ (name 'evilguix)
+ (url "https://github.com/MMagueta/EvilGuix"))
+#+END_SRC
+
+Then run:
+
+#+BEGIN_SRC sh
+guix pull
+guix install discord
+#+END_SRC
+
+The Discord package definition follows the stable Linux source
+versions pinned by Nixpkgs.
